@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">          
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">
+    <title>Listado de Registros</title>
+</head>
+<body onload="listarDatosFin()">
+    <nav>
+        <div class="nav-wrapper" style="background-color: rgba(255, 157, 0, 0.782);">
+          <a href="#" class="brand-logo">Fincas </a>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a>Servicios</a></li>
+            <li><a>Paquetes</a></li>
+            <li><a href="listarFincas.html">Fincas</a></li>
+          </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <h1>Gestión de Fincas</h1>
+        <div class="btn-container">
+        <a class="waves-effect waves-light btn" href="registrarFinca.html"><i class="material-icons left">add_circle</i>Registrar Finca</a>
+    </div>
+        <table class="striped">
+            <thead>
+                <tr>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Area
+                    </th>
+                    <th>
+                        Valor
+                    </th>
+                    <th>
+                        Cultivos
+                    </th>
+                    <th>
+                        Acciones
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="contenido">
+                
+            </tbody>
+        </table>
+    </div>
+    <script src="js/funcionesFincas.js"></script> 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>
