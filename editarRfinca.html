@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">          
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.11/dist/sweetalert2.min.css">
-    <title>Editar Registro</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.11/dist/sweetalert2.min.css">
+  <title>Editar Registro</title>
 </head>
+
 <body>
   <nav>
-    <div class="nav-wrapper">
+    <div class="nav-wrapper" style="background-color: rgba(255, 157, 0, 0.782);">
       <a href="#" class="brand-logo">Fincas </a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         <li><a href="index.html">Inicio</a></li>
@@ -21,56 +23,97 @@
         <li><a href="listarFincas.html">Fincas</a></li>
       </ul>
     </div>
-</nav>
-    <div class="container">
-      <h1>Actualizar Registro de Finca</h1>
+  </nav>
+  <div class="container">
+    <h1>Actualizar Registro de Finca</h1>
+    <div class="row">
+      <form class="col s12">
         <div class="row">
-            <form class="col s12">
-              <div class="row">
-                <div class="input-field col s6">
-                  <i class="material-icons prefix">location_city</i>
-                  <input id="nombre" type="text" class="validate">
-                  <label for="nombre">Nombre</label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="input-field col s6">
-                  <i class="material-icons prefix">rotate_90_degrees_ccw</i>
-                  <input id="area" type="text" class="validate">
-                  <label for="area">Area</label>
-                </div>
-              </div>
-              <div class="row" id="serviciosContainer">
-                <!-- Opciones de servicio se generarán dinámicamente aquí -->
-              </div>
-              <div class="row">
-                <div class="input-field col s6">
-                  <i class="material-icons prefix">monetization_on</i>
-                  <input id="valor" type="number" class="validate">
-                  <label for="valor">Valor</label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="input-field col s6">
-                  <i class="material-icons prefix">local_florist</i>
-                  <input id="cultivos" type="text" class="validate">
-                  <label for="cultivos">Cultivos</label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="input-field col s6">
-                    <button id="btnActualizar" class="btn green waves-effect waves-light" type="button" name="action">Actualizar
-                        <i class="material-icons right">send</i>
-                    </button>
-                    <a class="waves-effect waves-light btn red" href="listarFincas.html"><i class="material-icons right">send</i>Cancelar</a>
-                  </div>
-              </div>
-            </form>
+          <div class="input-field col s6">
+            <i class="material-icons prefix">location_city</i>
+            <input id="id" type="text" class="validate">
+            <label for="id">ID</label>
           </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s6">
+            <i class="material-icons prefix">contact_phone</i>
+            <input id="propietario" type="text" class="validate">
+            <label for="propietario">Propietario</label>
+          </div>
+        </div>  
+        <div class="row">
+          <div class="input-field col s6">
+            <i class="material-icons prefix">location_city</i>
+            <input id="nombre" type="text" class="validate">
+            <label for="nombre">Nombre</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s6">
+            <i class="material-icons prefix">rotate_90_degrees_ccw</i>
+            <input id="area" type="text" class="validate">
+            <label for="area">Area</label>
+          </div>
+        </div>
+        <div class="row" id="serviciosContainer">
+          <!-- Opciones de servicio se generarán dinámicamente aquí -->
+        </div>
+        <div class="row">
+          <div class="input-field col s6">
+            <i class="material-icons prefix">monetization_on</i>
+            <input id="valor" type="number" class="validate">
+            <label for="valor">Valor</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s6">
+            <i class="material-icons prefix">local_florist</i>
+            <input id="cultivos" type="text" class="validate">
+            <label for="cultivos">Cultivos</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s6">
+            <button id="btnActualizar" class="btn green waves-effect waves-light" type="button" name="action">Actualizar
+              <i class="material-icons right">send</i>
+            </button>
+            <a class="waves-effect waves-light btn red" href="listarFincas.html"><i
+                class="material-icons right">send</i>Cancelar</a>
+          </div>
+        </div>
+      </form>
     </div>
-    <script src="js/funcionesFincas.js"></script>    
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.11/dist/sweetalert2.all.min.js"></script>
+  </div>
+  <script>
+    function obtenerParametrosUrl() {
+      // Obtén la URL actual
+      const url = new URL(window.location.href);
+
+      // Obtén los parámetros de la URL
+      const id = url.searchParams.get('id');
+      const propietario = url.searchParams.get('propietario');
+      const nombre = url.searchParams.get('nombre');
+      const area = url.searchParams.get('area');
+      const valor = url.searchParams.get('valor');
+      const cultivos = url.searchParams.get('cultivos');
+
+      // Asigna los valores a los campos de entrada
+      document.getElementById('id').value = id;
+      document.getElementById('propietario').value = propietario;
+      document.getElementById('nombre').value = nombre;
+      document.getElementById('area').value = area;
+      document.getElementById('valor').value = valor;
+      document.getElementById('cultivos').value = cultivos;
+    }
+
+    // Llama a la función para asignar los valores
+    obtenerParametrosUrl();
+  </script>
+  <script src="js/funcionesFincas.js"></script>
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.11/dist/sweetalert2.all.min.js"></script>
 </body>
+
 </html>

@@ -1,34 +1,33 @@
-const url = 'https://api-backend-f.onrender.com/api/registrofincas' // link de la api
+const url = 'https://api-fincas-pacientes.onrender.com/api/tempPacientes' // link de la api
 
-const listarDatosPaci = async() => {
+const listarDatosPaci = async () => {
   let respuesta = '';
   let body = document.getElementById('contenido');
 
   fetch(url, {
-      method: 'GET',
-      mode: 'cors',
-      headers: {"Content-type":"application/json; charset=UTF-8"}
+    method: 'GET',
+    mode: 'cors',
+    headers: { "Content-type": "application/json; charset=UTF-8" }
   })
-  .then((resp) => resp.json())
-  .then(function(data){
-      let listaPacientes = data.pacientes;
-      return listaPacientes.map(function(pacientes){
-        // Obtener solo la fecha en formato local
-        let fecha = new Date(citas.fecha).toLocaleDateString();
+    .then((resp) => resp.json())
+    .then(function (data) {
+      let listaPacientes = data.registrarPacientes;
+      return listaPacientes.map(function (pacientes) {
+        
+        respuesta += `<tr><td>${pacientes.documento}</td>` +
+          `<td>${pacientes.nombres}</td>` +
+          `<td>${pacientes.apellidos}</td>` +
+          `<td>${pacientes.fecha}</td>` +
+          `<td>${pacientes.hora}</td>` +
+          `<td>${pacientes.temperatura}</td>` +
+          `<td><a class="waves-effect waves-light btn orange" href="editarRpaciente.html?id=${pacientes._id}&documento=${pacientes.documento}&nombres=${pacientes.nombres}&apellidos=${pacientes.apellidos}&fecha=${pacientes.fecha}&hora=${pacientes.hora}&temperatura=${pacientes.temperatura}"><i class="material-icons left">create</i>Editar</a>` +
+          ` <button id="btnEliminar" class="btn red waves-effect waves-light" onclick='eliminar("${pacientes._id}")' type="button" name="action">Eliminar
+         <i class="material-icons left">delete</i></button>                  
+         </td></tr>`;
+        body.innerHTML = respuesta;
 
-          respuesta += `<tr><td>${pacientes.documento}</td>` +
-              `<td>${pacientes.nombres}</td>` +
-              `<td>${pacientes.apellidos}</td>` +
-              `<td>${fecha}</td>` +
-              `<td>${pacientes.hora}</td>` +
-              `<td>${pacientes.temperatura}</td>` +
-              `<td><a class="waves-effect waves-light btn orange" href="editarCita.html"><i class="material-icons left">create</i>Editar</a>` +
-              ` <button id="btnEliminar" class="btn red waves-effect waves-light" onclick='eliminar("${pacientes._id}")' type="button" name="action">Eliminar
-              <i class="material-icons left">delete</i></button>                  
-              </td></tr>`;
-          body.innerHTML = respuesta;
       })
-  });
+    });
 }
 
 const registrarPaci = async () => {
@@ -37,90 +36,42 @@ const registrarPaci = async () => {
   let _apellidos = document.getElementById('apellidos').value;
   let _fecha = document.getElementById('fecha').value;
   let _hora = document.getElementById('hora').value;
-  let _temperatura = document.getElementById('vtemperatura').value;
-  
+  let _temperatura = document.getElementById('temperatura').value;
 
 
-// Validación de campos vacíos
-if (
-  _documento.trim() === '' ||
-  _nombres.trim() === '' ||
-  _apellidos.trim() === '' ||
-  _fecha.trim() === ''  ||
-  _hora.trim() === '' ||
-  _temperatura.trim() === '' 
 
-) {
+  // Validación de campos vacíos
+  if (
+    _documento.trim() === '' ||
+    _nombres.trim() === '' ||
+    _apellidos.trim() === '' ||
+    _fecha.trim() === '' ||
+    _hora.trim() === '' ||
+    _temperatura.trim() === ''
+
+  ) {
     Swal.fire(
       'Por favor, complete todos los campos',
       '',
       'error'
-      );
+    );
     return;
-  }   
-// Validación del nombre
-if (!/^[A-Za-z\s]+$/.test(_documento)) {
-  Swal.fire(
-    'El documento solo debe contener letras y espacios',
-    '',
-    'error'
-  );
-  return;
-}
+  } 
 
-// Validación del apellido
-if (!/^[A-Za-z\s]+$/.test(_apellidos)) {
-  Swal.fire(
-    'El apellido solo debe contener letras y espacios',
-    '',
-    'error'
-  );
-  return;
-}
-
-// Validación de la fecha
-if (new Date(_fecha) < new Date()) {
-  Swal.fire(
-    'La fecha no puede ser anterior a la fecha actual',
-    '',
-    'error'
-  );
-  return;
-}
-
-// Validación de la hora
-if (!/^\d{2}:\d{2}$/.test(_hora)) {
-  Swal.fire(
-    'El formato de hora debe ser HH:MM',
-    '',
-    'error'
-  );
-  return;
-}
-
-// Validación de la temperatura
-if (!/^\d+(\.\d{1,2})?$/.test(_temperatura)) {
-  Swal.fire(
-    'La temperatura debe ser un número con hasta 2 decimales',
-    '',
-    'error'
-  );
-  return;
-}
-
+  
   let paciente = {
-    documento: _documento, 
+    documento: _documento,
     nombres: _nombres,
     apellidos: _apellidos,
-    fecha: _fecha, 
-    hora: _hora, 
-    temperatura: _temperatura, 
+    fecha: _fecha,
+    hora: _hora,
+    temperatura: _temperatura,
   }
 
   fetch(url, {
     method: 'POST',
     mode: 'cors',
-    body: JSON.strinigfy(paciente),
+    body: JSON.stringify(paciente),
     headers: { "Content-type": "application/json; charset=UTF-8" }
   })
     .then((resp) => resp.json())
@@ -143,13 +94,11 @@ if (!/^\d+(\.\d{1,2})?$/.test(_temperatura)) {
         'error'
       );
     });
-}
+}  
 
 // ACTUALIZAR DATOS
 const actualizar = async () => {
-  let _id = ''; // Obtén el ID de la el registro que deseas editar
-
-  // Obtener los elementos del formulario
+  let _id = document.getElementById('id').value; // Obtén el ID de la el registro que deseas editar
   let _documento = document.getElementById('documento').value;
   let _nombres = document.getElementById('nombres').value;
   let _apellidos = document.getElementById('valor').value;
@@ -157,18 +106,12 @@ const actualizar = async () => {
   let _hora = document.getElementById('hora').value;
   let _temperatura = document.getElementById('temperatura').value;
 
-
-  // let fechaISO = new Date(_fecha).toISOString().split('T')[0];
-
-  // Validación de campos vacíos
   if (
-    _documento.trim() === '' ||
-    _nombres.trim() === '' ||
-    _apellidos.trim() === '' ||
-    _fecha.trim() === ''  ||
-    _hora.trim() === '' ||
-    _temperatura.trim() === '' 
-
+    _id.trim() === '' ||
+    _nombre.trim() === '' ||
+    _area.trim() === '' ||
+    _valor.trim() === '' ||
+    _cultivos.trim() === '' 
   ) {
     Swal.fire(
       'Por favor, complete todos los campos',
@@ -178,59 +121,18 @@ const actualizar = async () => {
     return;
   }
 
-// Validación del nombre
-if (!/^[A-Za-z\s]+$/.test(_documento)) {
-    Swal.fire(
-      'El documento solo debe contener letras y espacios',
-      '',
-      'error'
-    );
-    return;
+  let paciente = {
+    _id: _id,
+    documento: _documento,
+    nombres: _nombres,
+    apellidos: _apellidos,
+    fecha: _fecha,
+    hora: _hora,
+    temperatura: _temperatura
   }
-  
-  // Validación del apellido
-  if (!/^[A-Za-z\s]+$/.test(_apellidos)) {
-    Swal.fire(
-      'El apellido solo debe contener letras y espacios',
-      '',
-      'error'
-    );
-    return;
-  }
-  
-  // Validación de la fecha
-  if (new Date(_fecha) < new Date()) {
-    Swal.fire(
-      'La fecha no puede ser anterior a la fecha actual',
-      '',
-      'error'
-    );
-    return;
-  }
-  
-  // Validación de la hora
-  if (!/^\d{2}:\d{2}$/.test(_hora)) {
-    Swal.fire(
-      'El formato de hora debe ser HH:MM',
-      '',
-      'error'
-    );
-    return;
-  }
-  
-  // Validación de la temperatura
-  if (!/^\d+(\.\d{1,2})?$/.test(_temperatura)) {
-    Swal.fire(
-      'La temperatura debe ser un número con hasta 2 decimales',
-      '',
-      'error'
-    );
-    return;
-  }
-
 
   // Realizar la solicitud PUT para actualizar el registro
-  fetch(`${url}/${_id}`, {
+  fetch(url, {
     method: 'PUT',
     mode: 'cors',
     body: JSON.stringify(paciente),
@@ -244,11 +146,11 @@ if (!/^[A-Za-z\s]+$/.test(_documento)) {
         'success'
       );
     })
-    .then(()=>{
-      setTimeout(()=>{
+    .then(() => {
+      setTimeout(() => {
         window.location.href = "listarPacientes.html";
-      },3000);
-     })
+      }, 3000);
+    })
     .catch(error => {
       Swal.fire(
         '¡Error al actualizar el registro del Paciente!',
@@ -259,9 +161,12 @@ if (!/^[A-Za-z\s]+$/.test(_documento)) {
 }
 
 const eliminar = (_id) => {
+  let paciente = {
+    _id: _id,
+  };
   Swal.fire({
     title: 'Esta seguro de realizar la eliminacion',
-  
+
     icon: 'warning',
     showCancelButton: true,
     confirmButtonText: 'Si',
@@ -269,9 +174,10 @@ const eliminar = (_id) => {
 
   }).then((result) => {
     if (result.isConfirmed) {
-      fetch(url + "/?_id="+_id, {
+      fetch(url, {
         method: 'DELETE',
         mode: 'cors',
+        body: JSON.stringify(paciente),
         headers: { 'Content-type': 'application/json; charset=UTF-8' }
       })
         .then((resp) => resp.json())
@@ -279,11 +185,11 @@ const eliminar = (_id) => {
           console.log(json.msg)
           Swal.fire('Eliminacion exitosa', json.msg, 'success');
         })
-        .then(()=>{
-          setTimeout(()=>{
+        .then(() => {
+          setTimeout(() => {
             window.location.href = "listarPacientes.html";
-          },3000);
-         })
+          }, 3000);
+        })
         .catch(error => {
           alert(error.message)
           Swal.fire('Error en la eliminacion', error.message, 'error');
@@ -293,9 +199,9 @@ const eliminar = (_id) => {
 };
 
 if (document.querySelector('#btnRegistrar')) {
-  document.querySelector('#btnRegistrar').addEventListener('click', registrarPaci );
+  document.querySelector('#btnRegistrar').addEventListener('click', registrarPaci);
 }
 
-if(document.querySelector('#btnActualizar')){
-    document.querySelector('#btnActualizar').addEventListener('click', actualizar);
+if (document.querySelector('#btnActualizar')) {
+  document.querySelector('#btnActualizar').addEventListener('click', actualizar);
 }
